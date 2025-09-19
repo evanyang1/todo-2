@@ -19,9 +19,12 @@ function RouteComponent() {
       })
       .then((response) => {
         console.log(response.data);
+        alert("Signup successful! Please log in.");
       })
       .catch((error) => {
         console.log(error);
+        console.log(error.response.data);
+        alert(error.response.data.message);
       });
   }
   return (

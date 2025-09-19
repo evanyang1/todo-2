@@ -1,14 +1,22 @@
 import React from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import Header from "../components/header";
+import useUserStore from "../store/userStore";
 
 import { FaPlus } from "react-icons/fa6";
 
 export const Route = createFileRoute("/home")({
+  beforeLoad: () => {
+    if (!useUserStore.getState().user) {
+      throw redirect({
+        to: "/",
+      });
+    }
+  },
   component: RouteComponent,
 });
 
-function RouteComponent() {
+const RouteComponent = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -24,4 +32,4 @@ function RouteComponent() {
       </main>
     </div>
   );
-}
+};
