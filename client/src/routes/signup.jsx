@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import axios from "axios";
 
 export const Route = createFileRoute("/signup")({
   component: RouteComponent,
 });
 
+function handleSignup(event) {}
+
 function RouteComponent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm bg-white border border-gray-100 shadow-md rounded-xl p-6">
@@ -17,17 +23,19 @@ function RouteComponent() {
         <form className="space-y-4">
           <div className="space-y-1.5">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Email
             </label>
             <input
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               type="text"
               placeholder="Choose a username"
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900
+               placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2
+                focus:ring-blue-500/30"
             />
           </div>
 
@@ -43,13 +51,17 @@ function RouteComponent() {
               name="password"
               type="password"
               placeholder="Create a password"
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 
+              placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 
+              focus:ring-blue-500/30"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600/30 active:bg-blue-800 transition-colors"
+            className="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 
+            py-2.5 text-white font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 
+            focus:ring-blue-600/30 active:bg-blue-800 transition-colors"
           >
             Create account
           </button>

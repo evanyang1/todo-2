@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import axios from "axios";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function handleLogin(event) {
+    alert('hi')
+    event.preventDefault();
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm bg-white border border-gray-100 shadow-md rounded-xl p-6">
         <h1 className="text-2xl font-semibold text-gray-900">Welcome back</h1>
         <p className="text-sm text-gray-500 mb-6">Log in to your account</p>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleLogin}>
           <div className="space-y-1.5">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Email
             </label>
             <input
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               type="text"
               placeholder="Enter your username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
             />
           </div>
@@ -41,6 +51,8 @@ function RouteComponent() {
               name="password"
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
             />
           </div>
