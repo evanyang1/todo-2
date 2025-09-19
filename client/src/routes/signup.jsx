@@ -12,6 +12,17 @@ function RouteComponent() {
 
   function handleSignup(event) {
     event.preventDefault();
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/api/user/register`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
