@@ -6,12 +6,13 @@ export const Route = createFileRoute("/signup")({
   component: RouteComponent,
 });
 
-function handleSignup(event) {}
-
 function RouteComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function handleSignup(event) {
+    event.preventDefault();
+  }
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm bg-white border border-gray-100 shadow-md rounded-xl p-6">
@@ -20,7 +21,7 @@ function RouteComponent() {
         </h1>
         <p className="text-sm text-gray-500 mb-6">Sign up to get started</p>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSignup}>
           <div className="space-y-1.5">
             <label
               htmlFor="email"
@@ -33,6 +34,8 @@ function RouteComponent() {
               name="email"
               type="text"
               placeholder="Choose a username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900
                placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2
                 focus:ring-blue-500/30"

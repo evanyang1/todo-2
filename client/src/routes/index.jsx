@@ -10,7 +10,6 @@ function RouteComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function handleLogin(event) {
-    alert('hi')
     event.preventDefault();
   }
 
