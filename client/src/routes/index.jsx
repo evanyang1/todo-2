@@ -11,6 +11,26 @@ function RouteComponent() {
   const [password, setPassword] = useState("");
   function handleLogin(event) {
     event.preventDefault();
+    console.log(email, password);
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/api/user/login`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        alert("Login successful!");
+        window.location.href = "/home"; // Redirect to home page after login
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response?.data);
+        alert(
+          error.response?.data?.message || "Login failed. Please try again."
+        );
+      });
   }
 
   return (
@@ -30,8 +50,8 @@ function RouteComponent() {
             <input
               id="email"
               name="email"
-              type="text"
-              placeholder="Enter your username"
+              type="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"

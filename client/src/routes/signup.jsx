@@ -46,8 +46,8 @@ function RouteComponent() {
             <input
               id="email"
               name="email"
-              type="text"
-              placeholder="Choose a username"
+              type="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900
@@ -68,6 +68,8 @@ function RouteComponent() {
               name="password"
               type="password"
               placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 
               placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 
               focus:ring-blue-500/30"
