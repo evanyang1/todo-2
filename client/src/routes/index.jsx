@@ -31,7 +31,6 @@ function RouteComponent() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user in localStorage
       useUserStore.getState().setUser(response.data.user);
-      alert("Login successful!");
       // Use router navigation instead of window.location
       window.history.pushState({}, "", "/home");
       window.dispatchEvent(new PopStateEvent("popstate"));
