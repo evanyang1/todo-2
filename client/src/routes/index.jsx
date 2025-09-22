@@ -1,36 +1,44 @@
 import React, { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import axios from "axios";
+import useUserStore from "../store/userStore";
 
 export const Route = createFileRoute("/")({
+  beforeLoad: () => {
+    if (useUserStore.getState().isAuthenticated()) {
+      throw redirect({
+        to: "/home",
+      });
+    }
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function handleLogin(event) {
+
+  async function handleLogin(event) {
     event.preventDefault();
-    console.log(email, password);
-    axios
-      .post(`${import.meta.env.VITE_API_URL}/api/user/login`, {
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log(response.data);
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-        alert("Login successful!");
-        window.location.href = "/home"; // Redirect to home page after login
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response?.data);
-        alert(
-          error.response?.data?.message || "Login failed. Please try again."
-        );
-      });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/user/login`,
+        {
+          email,
+          password,
+        }
+      );
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user in localStorage
+      useUserStore.getState().setUser(response.data.user);
+      alert("Login successful!");
+      // Use router navigation instead of window.location
+      window.history.pushState({}, "", "/home");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed: " + (error.response?.data?.message || error.message));
+    }
   }
 
   return (

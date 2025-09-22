@@ -7,7 +7,8 @@ import { FaPlus } from "react-icons/fa6";
 
 export const Route = createFileRoute("/home")({
   beforeLoad: () => {
-    if (!useUserStore.getState().user) {
+    console.log(useUserStore.getState())
+    if (!useUserStore.getState().isAuthenticated()) {
       throw redirect({
         to: "/",
       });
