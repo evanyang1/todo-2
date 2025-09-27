@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import axios from "axios";
 import useUserStore from "../store/userStore";
+import useTaskStore from "../store/taskStore";
 
 export const Route = createFileRoute("/")({
   beforeLoad: () => {
@@ -23,15 +24,14 @@ function RouteComponent() {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/login`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
+      
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user in localStorage
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       useUserStore.getState().setUser(response.data.user);
-      // Use router navigation instead of window.location
+      useTaskStore.getState().initializeTasks();
+      
       window.history.pushState({}, "", "/home");
       window.dispatchEvent(new PopStateEvent("popstate"));
     } catch (error) {

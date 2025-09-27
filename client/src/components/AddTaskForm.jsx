@@ -1,12 +1,30 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
+import useTaskStore from "../store/taskStore";
 
 const AddTaskForm = () => {
-  const [Task, setTask] = useState("");
+  const [task, setTask] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const addTask = useTaskStore((state) => state.addTask);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(task, dueDate);
+    if (!task || !dueDate) return;
+
+    try {
+      await addTask({ name: task, dueDate });
+      setTask("");
+      setDueDate("");
+    } catch (error) {
+      alert("Failed to add task");
+    }
+  };
+
+
   return (
     <div>
-      <form className="w-full max-w-sm bg-white border border-gray-100 shadow-md rounded-xl p-6">
+      <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white border border-gray-100 shadow-md rounded-xl p-6">
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -20,7 +38,7 @@ const AddTaskForm = () => {
             id="task"
             type="text"
             placeholder="Enter task"
-            value={Task}
+            value={task}
             onChange={(e) => setTask(e.target.value)}
           />
         </div>
@@ -41,9 +59,9 @@ const AddTaskForm = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
+            type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none 
             focus:shadow-outline inline-flex items-center duration-300 transition-colors"
-            type="button"
           >
             <span className="mr-2">
               <FaPlus />
