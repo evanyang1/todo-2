@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import Header from "../components/header";
 import AddTaskForm from "../components/AddTaskForm";
 import useUserStore from "../store/userStore";
+import TasksList from "../components/TasksList";
 
 import { FaPlus } from "react-icons/fa6";
 
@@ -24,7 +25,10 @@ const RouteComponent = () => {
       <Header />
       <main className="container mx-auto p-4 flex flex-col items-center space-y-8">
         <h1 className="text-4xl font-semibold text-gray-900">Tasks</h1>
-        <AddTaskForm />
+        <div className="flex flex-row items-center space-x-8 w-full max-w-4xl">
+          <AddTaskForm />
+          <TasksList />
+        </div>
       </main>
     </div>
   );
