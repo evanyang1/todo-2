@@ -4,8 +4,7 @@ import Header from "../components/header";
 import AddTaskForm from "../components/AddTaskForm";
 import useUserStore from "../store/userStore";
 import TasksList from "../components/TasksList";
-
-import { FaPlus } from "react-icons/fa6";
+import AI from "../components/AI";
 
 export const Route = createFileRoute("/home")({
   beforeLoad: () => {
@@ -28,7 +27,9 @@ const RouteComponent = () => {
         <div className="flex flex-row items-center space-x-8 w-full max-w-4xl">
           <AddTaskForm />
           <TasksList />
+          
         </div>
+        <AI />
       </main>
     </div>
   );

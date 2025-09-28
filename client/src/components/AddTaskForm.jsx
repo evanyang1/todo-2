@@ -6,12 +6,16 @@ const AddTaskForm = () => {
   const [task, setTask] = useState("");
   const [dueDate, setDueDate] = useState("");
   const addTask = useTaskStore((state) => state.addTask);
+  let tasks = useTaskStore((state) => state.tasks);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(task, dueDate);
     if (!task || !dueDate) return;
-
+    if (tasks.length > 5) {
+      alert("You can only add up to 5 tasks. Try completing some first.");
+      return;
+    }
     try {
       await addTask({ name: task, dueDate });
       setTask("");
