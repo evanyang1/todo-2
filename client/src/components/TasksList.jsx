@@ -1,5 +1,6 @@
 import React from "react";
 import useTaskStore from "../store/taskStore";
+import { MdDeleteOutline } from "react-icons/md";
 
 const determineBackgroundColor = (date) => {
   const today = new Date();
@@ -17,12 +18,25 @@ const TasksList = () => {
       {useTaskStore((state) => state.tasks).map((task) => (
         <div
           key={task._id}
-          className={`p-4 mb-4 ${determineBackgroundColor(task.dueDate)} rounded-lg shadow`}
+          className={`p-4 mb-4 ${determineBackgroundColor(task.dueDate)} rounded-lg shadow
+          flex flex-row`}
         >
-          <h2 className="text-xl font-semibold text-gray-800">{task.name}</h2>
-          <p className="text-gray-600">
-            Due: {new Date(task.dueDate).toLocaleDateString()}
-          </p>
+          <div className="flex flex-col">
+            <h2 className="text-xl font-semibold text-gray-800">{task.name}</h2>
+            <p className="text-gray-600">
+              Due: {new Date(task.dueDate).toLocaleDateString()}
+            </p>
+          </div>
+          <div className="ml-auto">
+            {/** delete task */}
+            <button
+              onClick={() => useTaskStore.getState().removeTask(task._id)}
+              className="ml-auto bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded
+            focus:outline-none focus:shadow-outline duration-300 transition-colors"
+            >
+              <MdDeleteOutline size={20} />
+            </button>
+          </div>
         </div>
       ))}
     </div>
