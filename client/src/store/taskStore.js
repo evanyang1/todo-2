@@ -3,14 +3,7 @@ import useUserStore from "./userStore";
 import axios from "axios";
 
 const useTaskStore = create((set, get) => ({
-  tasks: [],
-  
-  initializeTasks: () => {
-    const user = useUserStore.getState().user;
-    if (user && user.tasks) {
-      set({ tasks: user.tasks });
-    }
-  },
+  tasks: useUserStore.getState().user?.tasks || [],
 
   addTask: async (taskData) => {
     try {

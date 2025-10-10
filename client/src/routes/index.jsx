@@ -30,7 +30,6 @@ function RouteComponent() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       useUserStore.getState().setUser(response.data.user);
-      useTaskStore.getState().initializeTasks();
       
       window.history.pushState({}, "", "/home");
       window.dispatchEvent(new PopStateEvent("popstate"));
