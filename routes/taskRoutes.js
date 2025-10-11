@@ -7,6 +7,18 @@ const mongoose = require("mongoose");
 
 const taskRouter = express.Router();
 
+// get tasks
+taskRouter.get("/", authMiddleware, async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    const user = await userModel.findById(userId).populate("tasks");
+    res.status(200).json({ success: true, tasks: user.tasks });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch tasks" });
+  }
+});
+
 // Create task
 taskRouter.post("/", authMiddleware, async (req, res) => {
   console.log(req.body);
@@ -32,6 +44,7 @@ taskRouter.post("/", authMiddleware, async (req, res) => {
 taskRouter.delete("/:id", authMiddleware, async (req, res) => {
   const taskId = req.params.id;
   const userId = req.user._id;
+  console.log("Deleting task:", taskId, "for user:", userId);
 
   try {
     await taskModel.findByIdAndDelete(taskId);

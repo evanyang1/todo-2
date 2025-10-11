@@ -103,24 +103,20 @@ userRouter.post("/tasks", authMiddleware, async (req, res) => {
 });
 
 userRouter.delete("/tasks/:taskId", authMiddleware, async (req, res) => {
-  const taskId = req.params.taskId;
+  const { taskId } = req.params;
   const userId = req.user._id;
 
   try {
-    // Find user and update tasks array
     const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.tasks = user.tasks.filter(
-      (taskObjectId) => taskObjectId.toString() !== taskId
-    );
+    user.tasks = user.tasks.filter((taskObjectId) => taskObjectId.toString() !== taskId);
     await user.save();
 
     res.status(200).json({ success: true, message: "Task removed from user" });
   } catch (error) {
-    console.error("Error removing task from user:", error);
     res.status(500).json({ message: "Failed to remove task from user" });
   }
 });
