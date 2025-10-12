@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from "react";
 import axios from "axios";
 import useTaskStore from "../store/taskStore";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 
 const determineBackgroundColor = (date) => {
   const today = new Date();
@@ -40,7 +40,7 @@ const TasksList = () => {
           className={`p-4 mb-4 ${determineBackgroundColor(task.dueDate)} rounded-lg shadow
           flex flex-row`}
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col mr-10">
             <h2 className="text-xl font-semibold text-gray-800">{task.name}</h2>
             <p className="text-gray-600">
               Due: {new Date(task.dueDate).toLocaleDateString()}
@@ -54,6 +54,9 @@ const TasksList = () => {
             focus:outline-none focus:shadow-outline duration-300 transition-colors"
             >
               <MdDeleteOutline size={20} />
+            </button>
+            <button className="ml-4">
+              <MdOutlineEdit size={20} />
             </button>
           </div>
         </div>
