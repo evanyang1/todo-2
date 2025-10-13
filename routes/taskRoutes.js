@@ -40,6 +40,38 @@ taskRouter.post("/", authMiddleware, async (req, res) => {
   }
 });
 
+// Update task
+taskRouter.put("/:id", authMiddleware, async (req, res) => {
+  const taskId = req.params.id;
+  const { name, dueDate } = req.body;
+  const userId = req.user._id;
+
+  try {
+    // Check if the task belongs to the user
+    const user = await userModel.findById(userId);
+    if (!user.tasks.includes(new mongoose.Types.ObjectId(taskId))) {
+      return res
+        .status(403)
+        .json({ message: "Task not found or access denied" });
+    }
+
+    const updatedTask = await taskModel.findByIdAndUpdate(
+      taskId,
+      { name, dueDate },
+      { new: true }
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.status(200).json({ success: true, task: updatedTask });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.status(500).json({ message: "Failed to update task" });
+  }
+});
+
 // Delete task
 taskRouter.delete("/:id", authMiddleware, async (req, res) => {
   const taskId = req.params.id;

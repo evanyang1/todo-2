@@ -21,6 +21,26 @@ const useTaskStore = create((set, get) => ({
     }
   },
 
+  updateTask: async (id, taskData) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/task/${id}`,
+        taskData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      set((state) => ({
+        tasks: state.tasks.map((task) =>
+          task._id === id ? response.data.task : task
+        ),
+      }));
+      return response.data.task;
+    } catch (error) {
+      console.error("Failed to update task:", error);
+      throw error;
+    }
+  },
+
   removeTask: async (id) => {
     try {
       const token = localStorage.getItem("token");
