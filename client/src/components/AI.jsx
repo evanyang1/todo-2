@@ -53,12 +53,13 @@ const AI = () => {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow w-full max-w-sm">
+    <div className="p-4 bg-white rounded-lg shadow w-full max-w-3xl">
       <button
         onClick={handleGenerateAdvice}
         disabled={isLoading}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
-            focus:outline-none focus:shadow-outline duration-300 transition-colors w-full disabled:bg-blue-300 disabled:cursor-not-allowed"
+            focus:outline-none focus:shadow-outline duration-300 transition-colors w-full
+             disabled:bg-blue-300 disabled:cursor-not-allowed"
       >
         {isLoading ? "Generating..." : "Get AI Advice on Your Tasks"}
       </button>

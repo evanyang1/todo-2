@@ -27,7 +27,6 @@ const RouteComponent = () => {
         <div className="flex flex-row items-center space-x-8 w-full max-w-4xl">
           <AddTaskForm />
           <TasksList />
-          
         </div>
         <AI />
       </main>
