@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import useTaskStore from "../store/taskStore";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
@@ -26,9 +26,16 @@ const TasksList = () => {
     fetchTasks();
   }, []);
 
+  const tasks = useTaskStore((state) => state.tasks);
+
+  // Sort tasks by due date in ascending order
+  const sortedTasks = [...tasks].sort(
+    (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+  );
+
   return (
     <div>
-      {useTaskStore((state) => state.tasks).map((task) => (
+      {sortedTasks.map((task) => (
         <Task task={task} key={task._id} />
       ))}
     </div>
