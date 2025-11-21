@@ -4,10 +4,14 @@ import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import EditTaskModal from "./EditTaskModal";
 
 const determineBackgroundColor = (date) => {
+  const dayInMs = 86400000;
   const today = new Date();
   // if date is before today, return red
   if (new Date(date) < today) {
     return "bg-red-100";
+  } else if (new Date(date) - today <= dayInMs) {
+    // if date is today, return yellow
+    return "bg-yellow-100";
   } else {
     return "bg-white";
   }
