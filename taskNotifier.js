@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 const taskModel = require("../models/taskModel");
 const userModel = require("../models/userModel");
-const { sendDueDateReminderEmail } = require("../services/emailService");
+const { sendDueDateReminderEmail } = require("./emailService");
 
 /**
  * Finds tasks due within the next 24 hours and sends reminder emails.
