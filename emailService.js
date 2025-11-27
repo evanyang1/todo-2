@@ -16,6 +16,8 @@ const transporter = nodemailer.createTransport({
  * @param {object} task - The task object.
  */
 const sendDueDateReminderEmail = async (userEmail, task) => {
+  console.log("hihihi");
+  console.log("Sending reminder email to:", userEmail, "for task:", task);
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: userEmail,

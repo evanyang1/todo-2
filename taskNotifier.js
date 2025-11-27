@@ -1,13 +1,15 @@
 const cron = require("node-cron");
-const taskModel = require("../models/taskModel");
-const userModel = require("../models/userModel");
+const taskModel = require("./models/taskModel");
+const userModel = require("./models/userModel");
 const { sendDueDateReminderEmail } = require("./emailService");
 
 /**
  * Finds tasks due within the next 24 hours and sends reminder emails.
  */
 const checkDueDatesAndSendReminders = async () => {
-  console.log("Running scheduled job: Checking for tasks with upcoming due dates...");
+  console.log(
+    "Running scheduled job: Checking for tasks with upcoming due dates..."
+  );
 
   const today = new Date();
   const tomorrow = new Date();
