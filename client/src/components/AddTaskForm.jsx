@@ -11,7 +11,7 @@ const AddTaskForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!task || !dueDate) return;
-    if (tasks.length > 5) {
+    if (tasks.length >= 5) {
       alert("You can only add up to 5 tasks. Try completing some first.");
       return;
     }
