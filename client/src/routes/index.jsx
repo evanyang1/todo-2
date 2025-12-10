@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import axios from "axios";
 import useUserStore from "../store/userStore";

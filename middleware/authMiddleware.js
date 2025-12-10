@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
 const authMiddleware = async (req, res, next) => {
-  console.log("authMiddleware");
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Authorization token required" });

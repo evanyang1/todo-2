@@ -1,4 +1,3 @@
-import React from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import Header from "../components/header";
 import AddTaskForm from "../components/AddTaskForm";

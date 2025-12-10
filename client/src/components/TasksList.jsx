@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import useTaskStore from "../store/taskStore";
-import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import Task from "./Task";
 
 const TasksList = () => {
